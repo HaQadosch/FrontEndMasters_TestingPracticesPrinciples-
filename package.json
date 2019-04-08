@@ -121,5 +121,9 @@
     "coverage",
     "workshop-setup.js",
     "other/coverage-example"
-  ]
+  ],
+  "dependencies": {
+    "nodemon": "1.18.10",
+    "react-scripts": "2.1.8"
+  }
 }

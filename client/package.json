@@ -34,5 +34,11 @@
     "react-scripts": "^1.1.4",
     "react-testing-library": "^4.1.4",
     "til-shared": "file:../shared"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

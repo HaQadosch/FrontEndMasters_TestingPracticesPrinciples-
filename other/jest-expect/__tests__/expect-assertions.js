@@ -1,10 +1,12 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 const renderer = require('react-test-renderer')
-const {getFlyingSuperHeros} = require('../super-heros')
+const { getFlyingSuperHeros } = require('../super-heros')
 /*
 Find a full list of assertions here: https://facebook.github.io/jest/docs/en/expect.html
 */
+
+/* global test, expect, jest */
 
 test('toBe', () => {
   // similar to ===
@@ -15,23 +17,23 @@ test('toBe', () => {
 
 test('toEqual', () => {
   // like `lodash.isEqual`: https://lodash.com/docs/4.17.4#isEqual
-  const subject = {a: {b: 'c'}, d: 'e'}
-  const actual = {a: {b: 'c'}, d: 'e'}
+  const subject = { a: { b: 'c' }, d: 'e' }
+  const actual = { a: { b: 'c' }, d: 'e' }
   expect(subject).toEqual(actual)
 
-  const subArray = [1, 2, {three: 'four', five: {six: 7}}]
-  const actArray = [1, 2, {three: 'four', five: {six: 7}}]
+  const subArray = [1, 2, { three: 'four', five: { six: 7 } }]
+  const actArray = [1, 2, { three: 'four', five: { six: 7 } }]
   expect(subArray).toEqual(actArray)
 })
 
 test('toMatchObject', () => {
   // similar to `toEqual`, but for partial equality
-  const subject = {a: {b: 'c'}, d: 'e'}
-  const actual = {a: {b: 'c'}}
+  const subject = { a: { b: 'c' }, d: 'e' }
+  const actual = { a: { b: 'c' } }
   expect(subject).toMatchObject(actual)
 
-  const subArray = [1, 2, {three: 'four', five: {six: 7}}]
-  const actArray = [1, 2, {five: {six: 7}}]
+  const subArray = [1, 2, { three: 'four', five: { six: 7 } }]
+  const actArray = [1, 2, { five: { six: 7 } }]
   expect(subArray).toMatchObject(actArray)
 })
 
@@ -45,9 +47,9 @@ test('toHaveBeenCalledTimes', () => {
 
 test('toHaveBeenCalledWith', () => {
   const mockFn = jest.fn()
-  mockFn('abc', {oneTwoThree: 123})
+  mockFn('abc', { oneTwoThree: 123 })
   // NOTE: uses toEqual (not toBe) on each arg
-  expect(mockFn).toHaveBeenCalledWith('abc', {oneTwoThree: 123})
+  expect(mockFn).toHaveBeenCalledWith('abc', { oneTwoThree: 123 })
 })
 
 test('toBeGreaterThan', () => {
@@ -70,13 +72,13 @@ test('toEqual, toMatchObject, and toHaveBeenCalledWith matching a schema', () =>
     day: 18,
     month: 10,
     year: 1988,
-    meta: {display: 'Oct 18th, 1988'},
+    meta: { display: 'Oct 18th, 1988' }
   }
   const schema = {
     day: expect.any(Number),
     month: expect.any(Number),
     year: expect.any(Number),
-    meta: {display: expect.stringContaining('1988')},
+    meta: { display: expect.stringContaining('1988') }
     // there's also expect.arrayContaining, or expect.objectContaining
   }
   expect(birthday).toEqual(schema)
@@ -84,7 +86,7 @@ test('toEqual, toMatchObject, and toHaveBeenCalledWith matching a schema', () =>
 
 test('mock functions', () => {
   const myFn = jest.fn()
-  myFn('first', {second: 'val'})
+  myFn('first', { second: 'val' })
 
   const calls = myFn.mock.calls
   const firstCall = calls[0]
@@ -94,7 +96,7 @@ test('mock functions', () => {
   // const [[firstArg, secondArg]] = myFn.mock.calls
 
   expect(firstArg).toBe('first')
-  expect(secondArg).toEqual({second: 'val'})
+  expect(secondArg).toEqual({ second: 'val' })
 })
 
 // there are other ways to make mock functions/spies
@@ -104,26 +106,13 @@ test('mock functions', () => {
 
 Snapshot tests below. We'll cover these later
 
-
-
-
-
-
-
-
-
-
-
-
-
-
  */
 
 test('manual "snapshot"', () => {
   const flyingHeros = getFlyingSuperHeros()
   expect(flyingHeros).toEqual([
-    {name: 'Dynaguy', powers: ['disintegration ray', 'fly']},
-    {name: 'Apogee', powers: ['gravity control', 'fly']},
+    { name: 'Dynaguy', powers: ['disintegration ray', 'fly'] },
+    { name: 'Apogee', powers: ['gravity control', 'fly'] }
   ])
 })
 
@@ -134,14 +123,14 @@ test('automatic snapshot', () => {
 
 test('snapshot examples', () => {
   const object = {
-    mixedArray: [1, [2, 3], {four: 5, six: [7, 8]}],
+    mixedArray: [1, [2, 3], { four: 5, six: [7, 8] }],
     regex: /do-not-try-to-regex-an-email/,
     date: new Date('1988-10-18'),
     error: new Error('some error'),
     someFunction: () => {},
     symbol: Symbol('symbol description'),
     set: new Set([1, 2, 3]),
-    map: new Map([[{}, []], [[], {}]]),
+    map: new Map([[{}, []], [[], {}]])
     // and more!
   }
   expect(object).toMatchSnapshot()
@@ -156,7 +145,7 @@ test('snapshot examples', () => {
 
   // And react elements!
   const onClick = () => {}
-  const element = React.createElement('button', {onClick}, 'Hello World')
+  const element = React.createElement('button', { onClick }, 'Hello World')
   expect(element).toMatchSnapshot('react element')
 
   // and rendered elements
